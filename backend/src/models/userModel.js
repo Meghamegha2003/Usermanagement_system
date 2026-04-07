@@ -24,6 +24,10 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "admin"],
       default: "user",
     },
+    profileImage: {
+      type: String,
+      default: "",
+    },
     isBlocked: {
       type: Boolean,
       default: false,

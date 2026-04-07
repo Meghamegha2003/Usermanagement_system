@@ -1,0 +1,94 @@
+/* AdminLogin.css */
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  height: 100%;
+}
+
+.admin-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.admin-login-container {
+  background-color: #fff;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.admin-login-container h2 {
+  font-size: 2rem;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+.admin-login-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-login-container input {
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+
+.admin-login-container input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
+  outline: none;
+}
+
+.admin-login-container button {
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  background-color: #667eea;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.admin-login-container button:hover {
+  background-color: #556cd6;
+}
+
+.admin-login-container button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.admin-login-container .error {
+  color: red;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+@media (max-width: 480px) {
+  .admin-login-container {
+    padding: 25px 20px;
+  }
+
+  .admin-login-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .admin-login-container input, 
+  .admin-login-container button {
+    font-size: 0.9rem;
+  }
+}

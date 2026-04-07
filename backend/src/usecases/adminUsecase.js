@@ -1,6 +1,26 @@
 const userRepository = require("../repositories/userRepository");
 const bcrypt = require("bcryptjs");
 const status = require("../utils/statusCodes");
+const jwt = require("jsonwebtoken");
+const User = require("../models/userModel")
+
+const loginAdmin = async (email, password) => {
+ const admin = await User.findOne({ email, role: "admin" });
+  if (!admin) throw new Error("Admin not found");
+
+  const isMatch = await bcrypt.compare(password, admin.password);
+  if (!isMatch) throw new Error("Invalid password");
+
+  const token = jwt.sign(
+    { id: admin._id, role: "admin" },
+    process.env.JWT_SECRET,
+    { expiresIn: "1d" }
+  );
+
+  return { admin, token };
+};
+
+
 
 
 const getAllUser = async(search)=>{
@@ -30,7 +50,7 @@ const updateUser = async (id,{name,email,password})=>{
     if(password){
         updatedData.password = await bcrypt.hash(password,10)
     }
-    const user = await userRepository.updateUser(id,updateData)
+    const user = await userRepository.updateUser(id,updatedData)
     return {status:status.SUCCESS,message:"Updated the user",user}
 }
 
@@ -43,5 +63,6 @@ module.exports = {
     getAllUser,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    loginAdmin
 }

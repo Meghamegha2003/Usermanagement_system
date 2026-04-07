@@ -8,5 +8,6 @@ app.use(cors({credentials:false}))
 app.use(express.json())
 app.use('/',authRoutes)
 app.use('/admin',adminRoutes)
+app.use("/uploads", express.static("uploads"));
 
 module.exports = app

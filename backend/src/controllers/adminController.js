@@ -1,6 +1,17 @@
 const adminUsecase = require("../usecases/adminUsecase");
 const status = require("../utils/statusCodes");
 
+const loginAdmin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const result = await adminUsecase.loginAdmin(email, password);
+
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
 const getAdmin = async (req, res) => {
   try {
     res.status(status.SUCCESS).json({
@@ -56,4 +67,5 @@ module.exports = {
   createUser,
   updateUser,
   deleteUser,
+  loginAdmin
 };

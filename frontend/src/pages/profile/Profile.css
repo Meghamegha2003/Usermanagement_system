@@ -1,0 +1,87 @@
+.profile-container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.profile-card {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.profile-image-container {
+  margin-bottom: 15px;
+}
+
+.profile-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-placeholder {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: #888;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  margin: 0 auto 10px;
+}
+
+.profile-info p {
+  margin: 5px 0;
+}
+
+.edit-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background: #0056b3;
+}
+
+.profile-edit-form input {
+  width: 90%;
+  padding: 8px;
+  margin: 5px 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.profile-edit-form button {
+  margin: 10px 5px 0 5px;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.profile-edit-form button[type="submit"] {
+  background: #28a745;
+  color: white;
+}
+
+.profile-edit-form button[type="button"] {
+  background: #dc3545;
+  color: white;
+}
+
+.crop-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  margin: 10px 0;
+}
