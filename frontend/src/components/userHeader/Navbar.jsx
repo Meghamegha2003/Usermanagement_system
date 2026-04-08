@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCurrentUser, logout } from "../../features/auth/authSlice";
+import { toast } from "react-toastify";
 import "./Navbar.css";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
@@ -15,7 +17,8 @@ const Navbar = () => {
 
   const handleLogout = () => {
     dispatch(logout());
-    window.location.href = "/login";
+    toast.success("Logged out successfully!");
+    setTimeout(() => navigate("/login"), 1000);
   };
 
   const renderProfile = () => {
@@ -30,7 +33,9 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <div className="navbar-logo"><Link to="/">UserApp</Link></div>
+      <div className="navbar-logo">
+        <Link to="/">UserApp</Link>
+      </div>
       <ul className={`navbar-links ${open ? "active" : ""}`}>
         <li><Link to="/" onClick={() => setOpen(false)}>Home</Link></li>
         {user && (

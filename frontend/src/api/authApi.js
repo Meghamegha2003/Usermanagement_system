@@ -5,5 +5,5 @@ export const registerUser = (data) => API.post("/register", data);
 
 export const getProfile = () => API.get("/profile");
 
-export const uploadProfileImage = (formData) =>
-  API.post("/profile/upload", formData);
+export const updateProfileApi = (formData) =>
+  API.put("/profile", formData);

@@ -1,23 +1,37 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchCurrentUser } from "./features/auth/authSlice";
-import { setAdmin } from "./features/admin/adminSlice";
+import { loadAdminFromToken } from "./features/admin/adminSlice";
 import AppRoutes from "./routes/AppRoutes";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./App.css";
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchCurrentUser());
-
-    const token = localStorage.getItem("adminToken");
-    const adminData = localStorage.getItem("adminData");
-    if (token && adminData) {
-      dispatch(setAdmin(JSON.parse(adminData)));
-    }
+    dispatch(loadAdminFromToken());
   }, [dispatch]);
 
-  return <AppRoutes />;
+  return (
+    <>
+      <AppRoutes />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+        draggable
+        theme="colored"
+        toastClassName="custom-toast"
+        bodyClassName="custom-toast-body"
+      />
+    </>
+  );
 }
 
 export default App;

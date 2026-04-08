@@ -5,9 +5,8 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/userModel")
 
 const loginAdmin = async (email, password) => {
- const admin = await User.findOne({ email, role: "admin" });
+  const admin = await User.findOne({ email, role: "admin" });
   if (!admin) throw new Error("Admin not found");
-
   const isMatch = await bcrypt.compare(password, admin.password);
   if (!isMatch) throw new Error("Invalid password");
 
@@ -19,8 +18,6 @@ const loginAdmin = async (email, password) => {
 
   return { admin, token };
 };
-
-
 
 
 const getAllUser = async(search)=>{

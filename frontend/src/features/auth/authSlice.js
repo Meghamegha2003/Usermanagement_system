@@ -1,14 +1,19 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getProfile, loginUser, registerUser, uploadProfileImage } from "../../api/authApi";
-
+import { getProfile, loginUser, registerUser, updateProfileApi } from "../../api/authApi";
 
 export const login = createAsyncThunk(
   "auth/login",
   async (data, { rejectWithValue }) => {
     try {
       const res = await loginUser(data);
+      const user = res.data.data;
+
+      if (user.role === "admin") {
+        return rejectWithValue("Admin login not allowed here!");
+      }
+
       localStorage.setItem("token", res.data?.token);
-      return res.data.user;
+      return user;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || "Login failed");
     }
@@ -20,7 +25,7 @@ export const register = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const res = await registerUser(data);
-      return res.data.user;
+      return res.data.data;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || "Registration failed");
     }
@@ -31,9 +36,9 @@ export const fetchCurrentUser = createAsyncThunk(
   "auth/fetchCurrentUser",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await getProfile(); 
-      return res.data.user; 
-    } catch (err) {
+      const res = await getProfile();
+      return res.data.user;
+    } catch {
       return rejectWithValue(null);
     }
   }
@@ -43,8 +48,8 @@ export const updateProfile = createAsyncThunk(
   "auth/updateProfile",
   async (formData, { rejectWithValue }) => {
     try {
-      const res = await uploadProfileImage(formData);
-      return res.data.user; 
+      const res = await updateProfileApi(formData);
+      return res.data.user;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || "Profile update failed");
     }
@@ -81,19 +86,51 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = action.payload;
       })
-      .addCase(fetchCurrentUser.rejected, (state) => { state.loading = false; state.user = null; })
+      .addCase(fetchCurrentUser.rejected, (state) => {
+        state.loading = false;
+        state.user = null;
+      })
 
-      .addCase(login.pending, (state) => { state.loading = true; state.error = null; })
-      .addCase(login.fulfilled, (state, action) => { state.loading = false; state.user = action.payload; })
-      .addCase(login.rejected, (state, action) => { state.loading = false; state.error = action.payload; })
+      .addCase(login.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(login.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
 
-      .addCase(register.pending, (state) => { state.loading = true; state.error = null; })
-      .addCase(register.fulfilled, (state, action) => { state.loading = false; state.user = action.payload; state.successMessage = "Registration successful"; })
-      .addCase(register.rejected, (state, action) => { state.loading = false; state.error = action.payload; })
+      .addCase(register.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(register.fulfilled, (state) => {
+        state.loading = false;
+        state.successMessage = "Registration successful";
+      })
+      .addCase(register.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
 
-      .addCase(updateProfile.pending, (state) => { state.loading = true; state.error = null; state.successMessage = null; })
-      .addCase(updateProfile.fulfilled, (state, action) => { state.loading = false; state.user = action.payload; state.successMessage = "Profile updated successfully"; })
-      .addCase(updateProfile.rejected, (state, action) => { state.loading = false; state.error = action.payload; });
+      .addCase(updateProfile.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.successMessage = null;
+      })
+      .addCase(updateProfile.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+        state.successMessage = "Profile updated successfully";
+      })
+      .addCase(updateProfile.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   }
 });
 

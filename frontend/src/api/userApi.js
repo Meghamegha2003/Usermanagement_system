@@ -1,11 +1,7 @@
 import API from "./axios";
 
-export const getAdmin = (data)=>{
-   return API.get("/admin/users",data);
-}
-
-export const getUsers = (search) => {
-  return API.get(`/admin/users?search=${search || ""}`);
+export const getUsers = (search = "") => {
+  return API.get("/admin/users", { params: { search } });
 };
 
 export const createUser = (data) => {
@@ -19,20 +15,3 @@ export const updateUser = (id, data) => {
 export const deleteUser = (id) => {
   return API.delete(`/admin/users/${id}`);
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

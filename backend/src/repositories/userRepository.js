@@ -8,20 +8,20 @@ const findUserByEmail = async (email) => {
   return await User.findOne({ email });
 };
 
-const getUser = async (search) => {
-  const query = { role: "user" }
-   if (search) {
-    query.name = { $regex: search, $options: "i" }; 
-  }
-  return await User.find(query);
+const findUserById = async (id) => {
+  return await User.findById(id).select("-password");
 };
 
-const createUserById = async (id) => {
-  return await User.findById(id);
+const getUser = async (search) => {
+  const query = { role: "user" }; 
+  if (search) {
+    query.name = { $regex: search, $options: "i" };
+  }
+  return await User.find(query).select("-password");
 };
 
 const updateUser = async (id, updateData) => {
-  return await User.findByIdAndUpdate(id, updateData, { new: true });
+  return await User.findByIdAndUpdate(id, updateData, { new: true }).select("-password");
 };
 
 const deleteUser = async (id) => {
@@ -31,8 +31,8 @@ const deleteUser = async (id) => {
 module.exports = {
   createUser,
   findUserByEmail,
+  findUserById,
   getUser,
-  createUserById,
   updateUser,
   deleteUser,
 };

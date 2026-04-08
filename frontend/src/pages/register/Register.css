@@ -1,52 +1,89 @@
-.register-container {
+.register-page {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 80vh;
-  background: #f0f2f5;
-  padding: 20px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ece9e6, #ffffff);
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-.register-form {
-  background: white;
-  padding: 30px 40px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+.register-card {
+  background: #ffffff;
+  padding: 50px 40px;
+  border-radius: 20px;
   width: 100%;
-  max-width: 450px;
-}
-
-.register-form h2 {
+  max-width: 400px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   text-align: center;
-  margin-bottom: 20px;
-  color: #007bff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.register-form input {
+.register-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+.register-title {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+
+.register-card input {
   width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border-radius: 6px;
+  padding: 14px 18px;
+  border-radius: 12px;
   border: 1px solid #ccc;
-}
-
-.register-form button {
-  width: 100%;
-  padding: 12px;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
   font-size: 16px;
+  outline: none;
+  margin-bottom: 18px;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.register-form button:hover {
-  background: #0056b3;
+.register-card input:focus {
+  border-color: #7a5af8;
+  box-shadow: 0 0 15px rgba(122, 90, 248, 0.2);
 }
 
-.error {
-  color: red;
+.register-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #7a5af8;
+  color: white;
+  margin-top: 10px;
+}
+
+.register-btn:hover {
+  background: #6246e8;
+  transform: translateY(-2px);
+}
+
+.register-btn:disabled {
+  background: #a395f8;
+  cursor: not-allowed;
+}
+
+.login-link {
+  margin-top: 18px;
   font-size: 14px;
-  margin-bottom: 10px;
+  color: #555;
+}
+
+.login-link span {
+  color: #7a5af8;
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.login-link span:hover {
+  color: #6246e8;
+  text-decoration: underline;
 }
