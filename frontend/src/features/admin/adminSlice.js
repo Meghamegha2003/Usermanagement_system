@@ -75,7 +75,7 @@ export const editUser = createAsyncThunk(
 
 const adminSlice = createSlice({
   name: "admin",
-  initialState: { admin: null, users: [], loading: false, error: null },
+  initialState: { admin: null, users: [], loading: false,adminChecked: false, error: null },
   reducers: {
     logoutAdmin: (state) => {
       state.admin = null;
@@ -92,13 +92,14 @@ const adminSlice = createSlice({
       .addCase(adminLogin.pending, (state) => { state.loading = true; state.error = null; })
       .addCase(adminLogin.fulfilled, (state, action) => { state.loading = false; state.admin = action.payload; })
       .addCase(adminLogin.rejected, (state, action) => { state.loading = false; state.error = action.payload; })
-      .addCase(loadAdminFromToken.fulfilled, (state, action) => { state.admin = action.payload; })
+      .addCase(loadAdminFromToken.fulfilled, (state, action) => { state.admin = action.payload;  state.adminChecked = true; })
       .addCase(loadAdminFromToken.rejected, (state) => {
         state.admin = null;
+         state.adminChecked = true;
         localStorage.removeItem("adminToken");
         localStorage.removeItem("adminData");
       })
-      .addCase(fetchUsers.pending, (state) => { state.loading = true; state.error = null; })
+      .addCase(fetchUsers.pending, (state) => { state.loading = true; state.error = null;  })
       .addCase(fetchUsers.fulfilled, (state, action) => { state.loading = false; state.users = action.payload; })
       .addCase(fetchUsers.rejected, (state, action) => { state.loading = false; state.error = action.payload; })
       .addCase(removeUser.fulfilled, (state, action) => { state.users = state.users.filter(u => u._id !== action.payload); })
@@ -106,7 +107,7 @@ const adminSlice = createSlice({
         const index = state.users.findIndex(u => u._id === action.payload._id);
         if (index !== -1) state.users[index] = action.payload;
       })
-      .addCase(editUser.rejected, (state, action) => { state.error = action.payload; });
+      .addCase(editUser.rejected, (state, action) => { state.error = action.payload;});
   },
 });
 

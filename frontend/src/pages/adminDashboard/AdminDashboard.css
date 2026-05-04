@@ -6,7 +6,6 @@
   color: #333;
 }
 
-/* Search Bar */
 .search-box {
   width: 100%;
   padding: 12px 20px;
@@ -24,14 +23,12 @@
   box-shadow: 0 0 8px rgba(74, 144, 226, 0.2);
 }
 
-/* User Cards Container */
 .user-list {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-/* Individual User Card */
 .user-card {
   display: flex;
   justify-content: space-between;
@@ -49,7 +46,6 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* User Info Styling */
 .user-info {
   flex: 1;
 }
@@ -63,7 +59,6 @@
   color: #555;
 }
 
-/* Editing Inputs inside Card */
 .user-info input {
   display: block;
   width: 90%;
@@ -73,7 +68,6 @@
   border-radius: 4px;
 }
 
-/* Action Buttons */
 .actions {
   display: flex;
   gap: 10px;
@@ -88,7 +82,6 @@
   transition: background 0.2s ease, opacity 0.2s;
 }
 
-/* Primary / Edit / Save Button */
 .actions button:first-child {
   background-color: #4a90e2;
   color: white;
@@ -98,7 +91,6 @@
   background-color: #357abd;
 }
 
-/* Delete / Cancel Button */
 .actions button:last-child {
   background-color: #f4f4f4;
   color: #333;
@@ -109,14 +101,12 @@
   background-color: #e2e2e2;
 }
 
-/* Special Case: Delete Hover */
 .actions button:last-child:not(:disabled):contains("Delete"):hover {
   background-color: #ff4d4f;
   color: white;
   border-color: #ff4d4f;
 }
 
-/* Status Messages */
 .error {
   color: #d32f2f;
   background: #fdecea;
@@ -125,7 +115,6 @@
   text-align: center;
 }
 
-/* Responsive Tweaks */
 @media (max-width: 600px) {
   .user-card {
     flex-direction: column;

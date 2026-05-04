@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { showToast } from "../../utils/toastService";
 import "./Register.css";
 
 const Register = () => {
@@ -16,14 +16,14 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (form.password !== form.confirmPassword) return toast.error("Passwords do not match");
+    if (form.password !== form.confirmPassword) return showToast.error("Passwords do not match");
 
     dispatch(register(form)).then((res) => {
       if (res.type === "auth/register/fulfilled") {
-        toast.success("Registration successful! Please login.");
+        showToast.success("Registration successful! Please login.");
         navigate("/login");
       } else {
-        toast.error(res.payload || "Registration failed!");
+        showToast.error(res.payload || "Registration failed!");
       }
     });
   };

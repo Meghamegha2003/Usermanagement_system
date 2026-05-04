@@ -26,6 +26,7 @@ function App() {
         closeOnClick
         pauseOnHover
         draggable
+        limit={1}
         theme="colored"
         toastClassName="custom-toast"
         bodyClassName="custom-toast-body"

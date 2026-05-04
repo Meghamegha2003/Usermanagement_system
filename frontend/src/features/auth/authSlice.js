@@ -23,6 +23,7 @@ export const login = createAsyncThunk(
 export const register = createAsyncThunk(
   "auth/register",
   async (data, { rejectWithValue }) => {
+
     try {
       const res = await registerUser(data);
       return res.data.data;
@@ -36,6 +37,8 @@ export const fetchCurrentUser = createAsyncThunk(
   "auth/fetchCurrentUser",
   async (_, { rejectWithValue }) => {
     try {
+      const token = localStorage.getItem("token")
+      if(!token)return rejectWithValue("No token")
       const res = await getProfile();
       return res.data.user;
     } catch {
@@ -61,6 +64,7 @@ const authSlice = createSlice({
   initialState: {
     user: null,
     loading: false,
+    authChecked: false,
     error: null,
     successMessage: null,
   },
@@ -85,10 +89,12 @@ const authSlice = createSlice({
       .addCase(fetchCurrentUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
+        state.authChecked = true;
       })
       .addCase(fetchCurrentUser.rejected, (state) => {
         state.loading = false;
         state.user = null;
+        state.authChecked = true;
       })
 
       .addCase(login.pending, (state) => {

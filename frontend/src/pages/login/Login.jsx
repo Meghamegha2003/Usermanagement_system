@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login, clearMessages } from "../../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { showToast } from "../../utils/toastService";
 import "./Login.css";
 
 const Login = () => {
@@ -15,11 +15,11 @@ const Login = () => {
 
   useEffect(() => {
     if (user) {
-      toast.success("Login successful!");
+      showToast.success("Login successful!");
       navigate("/");
     }
     if (error) {
-      toast.error(error);
+      showToast.error(error);
       dispatch(clearMessages());
     }
   }, [user, error, navigate, dispatch]);

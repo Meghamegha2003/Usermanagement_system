@@ -11,10 +11,6 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
 
-  useEffect(() => {
-    dispatch(fetchCurrentUser());
-  }, [dispatch]);
-
   const handleLogout = () => {
     dispatch(logout());
     toast.success("Logged out successfully!");
